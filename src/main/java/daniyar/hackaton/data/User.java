@@ -44,7 +44,7 @@ public class User implements UserDetails {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private UserRole role = UserRole.USER;
 
     @Column(name = "username", length = 35)
     @Length(min = 3, max = 35)
@@ -84,6 +84,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true; // TODO
+        return true;
     }
 }
