@@ -1,5 +1,6 @@
 package daniyar.hackaton.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,10 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class AppConfig {
     private final UserRepository repository;
 
-    // @Bean
-    // public ModelMapper modelMapper() {
-    // return new ModelMapper();
-    // }
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

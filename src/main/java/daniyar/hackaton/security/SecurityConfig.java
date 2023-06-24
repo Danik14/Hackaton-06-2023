@@ -27,11 +27,12 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                // /error/** is a default endpoint for springs handler
+                // /error/** is a default endpoint for spring's handler
                 // if i remove it every uknown request will get 403 instead of 404
                 .requestMatchers("/api/v1/auth/**", "/error/**")
                 .permitAll()
-                .requestMatchers("/api/v1/admin/**").hasAnyRole(ADMIN.name())
+                .requestMatchers("/api/v1/admin/**")
+                .hasAnyRole(ADMIN.name())
                 // any OTHER request
                 .anyRequest()
                 // should be authenticated
