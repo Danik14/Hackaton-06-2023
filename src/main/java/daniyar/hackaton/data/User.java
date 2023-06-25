@@ -19,6 +19,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -40,11 +41,14 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     @Fetch(FetchMode.SUBSELECT)
-    private List<Event> events;
+    private List<Event> createdEvents;
+
+    @ManyToMany(mappedBy = "enrolledUsers")
+    private List<Event> participatedEvents;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private UserRole role = UserRole.USER;
+    private UserRole role;
 
     @Column(name = "username", length = 35)
     @Length(min = 3, max = 35)

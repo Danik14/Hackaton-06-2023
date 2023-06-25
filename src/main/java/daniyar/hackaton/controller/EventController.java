@@ -1,6 +1,8 @@
 package daniyar.hackaton.controller;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -14,19 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 import daniyar.hackaton.data.Event;
 import daniyar.hackaton.data.User;
 import daniyar.hackaton.dto.EventDto;
-import daniyar.hackaton.security.JwtService;
 import daniyar.hackaton.service.EventService;
 import daniyar.hackaton.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/event")
 @RequiredArgsConstructor
+// @Slf4j
 public class EventController {
     private final ModelMapper mapper;
     private final EventService eventService;
-    private final JwtService jwtService;
     private final UserService userService;
 
     @GetMapping("")
@@ -40,11 +40,8 @@ public class EventController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createEvent(@RequestBody EventDto eventDto, HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-
-        String userEmail = jwtService.extractEmail(token);
-
+    public ResponseEntity<?> createEvent(@RequestBody EventDto eventDto, Principal principal) {
+        String userEmail = principal.getName();
         User user = userService.getUserByEmail(userEmail);
 
         Event event = mapper.map(eventDto, Event.class);
@@ -52,5 +49,20 @@ public class EventController {
         Event createdEvent = eventService.addEvent(event);
 
         return ResponseEntity.ok().body(createdEvent);
+    }
+
+    @PostMapping("/{uuid}")
+    public ResponseEntity<?> createEvent(@PathVariable String uuid, Principal principal) {
+        UUID id = UUID.fromString(uuid);
+        if (uuid == null) {
+            throw new IllegalArgumentException("Invalid UUID format");
+        }
+
+        String userEmail = principal.getName();
+        User user = userService.getUserByEmail(userEmail);
+
+        eventService.addParticipantToEvent(user, id);
+
+        return ResponseEntity.ok().body("Successfuly added a participant");
     }
 }

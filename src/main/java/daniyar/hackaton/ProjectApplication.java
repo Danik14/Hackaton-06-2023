@@ -47,13 +47,40 @@ public class ProjectApplication {
 			// userRepository.save(user2);
 			// userRepository.save(user3);
 
-			User user1 = new User(UUID.randomUUID(), new ArrayList<>(), UserRole.ADMIN,
+			// User user1 = new User(UUID.randomUUID(), new ArrayList<>(), UserRole.ADMIN,
+			// "John", "john@example.com",
+			// passwordEncoder.encode("password1"));
+			// User user2 = new User(UUID.randomUUID(), new ArrayList<>(), UserRole.USER,
+			// "Jane", "jane@example.com",
+			// passwordEncoder.encode("password2"));
+			// User user3 = new User(UUID.randomUUID(), new ArrayList<>(), UserRole.ADMIN,
+			// "Ryan", "gosling@example.com",
+			// passwordEncoder.encode("password3"));
+
+			// user1 = userRepository.save(user1);
+			// userRepository.save(user2);
+			// userRepository.save(user3);
+
+			// Event event = new Event(UUID.randomUUID(),
+			// user1,
+			// "Event " + new Random().nextInt(100),
+			// "some description",
+			// 500,
+			// false,
+			// 10,
+			// 20,
+			// Arrays.asList("Case 1", "Case 2", "Case 3"),
+			// false);
+
+			// eventRepository.save(event);
+
+			User user1 = new User(UUID.randomUUID(), new ArrayList<>(), new ArrayList<>(), UserRole.ADMIN,
 					"John", "john@example.com",
 					passwordEncoder.encode("password1"));
-			User user2 = new User(UUID.randomUUID(), new ArrayList<>(), UserRole.USER,
+			User user2 = new User(UUID.randomUUID(), new ArrayList<>(), new ArrayList<>(), UserRole.USER,
 					"Jane", "jane@example.com",
 					passwordEncoder.encode("password2"));
-			User user3 = new User(UUID.randomUUID(), new ArrayList<>(), UserRole.ADMIN,
+			User user3 = new User(UUID.randomUUID(), new ArrayList<>(), new ArrayList<>(), UserRole.ADMIN,
 					"Ryan", "gosling@example.com",
 					passwordEncoder.encode("password3"));
 
@@ -61,8 +88,21 @@ public class ProjectApplication {
 			userRepository.save(user2);
 			userRepository.save(user3);
 
-			Event event = new Event(UUID.randomUUID(),
+			Event event1 = new Event(UUID.randomUUID(),
 					user1,
+					new ArrayList<>(),
+					"Event " + new Random().nextInt(100),
+					"some description",
+					300,
+					false,
+					10,
+					20,
+					Arrays.asList("Case 1", "Case 2", "Case 3"),
+					false);
+
+			Event event2 = new Event(UUID.randomUUID(),
+					user1,
+					new ArrayList<User>(),
 					"Event " + new Random().nextInt(100),
 					"some description",
 					500,
@@ -72,7 +112,9 @@ public class ProjectApplication {
 					Arrays.asList("Case 1", "Case 2", "Case 3"),
 					false);
 
-			eventRepository.save(event);
+			// event2.getEnrolledUsers().add(user2);
+			eventRepository.save(event1);
+			eventRepository.save(event2);
 		};
 	}
 

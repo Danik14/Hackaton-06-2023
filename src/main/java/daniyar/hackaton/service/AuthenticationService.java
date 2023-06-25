@@ -9,6 +9,7 @@ import daniyar.hackaton.data.User;
 import daniyar.hackaton.dto.AuthenticationRequest;
 import daniyar.hackaton.dto.AuthenticationResponse;
 import daniyar.hackaton.dto.RegistrationRequest;
+import daniyar.hackaton.enums.UserRole;
 import daniyar.hackaton.exception.UserAlreadyExistsException;
 import daniyar.hackaton.exception.UserNotFoundException;
 import daniyar.hackaton.repository.UserRepository;
@@ -34,6 +35,7 @@ public class AuthenticationService {
                 .email(registrationRequest.getEmail())
                 .password(passwordEncoder.encode(registrationRequest.getPassword()))
                 .username(registrationRequest.getUsername())
+                .role(UserRole.USER)
                 .build();
 
         repository.save(user);
