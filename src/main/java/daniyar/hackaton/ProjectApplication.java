@@ -74,45 +74,52 @@ public class ProjectApplication {
 
 			// eventRepository.save(event);
 
-			User user1 = new User(UUID.randomUUID(), new ArrayList<>(), new ArrayList<>(), UserRole.ADMIN,
+			User user1 = new User(UUID.fromString("db6da312-80dd-4845-9cf6-9a19c0cdc551"), new ArrayList<>(),
+					new ArrayList<>(), UserRole.ADMIN,
 					"John", "john@example.com",
 					passwordEncoder.encode("password1"));
-			User user2 = new User(UUID.randomUUID(), new ArrayList<>(), new ArrayList<>(), UserRole.USER,
+			User user2 = new User(UUID.fromString("624f3f3e-131e-11ee-be56-0242ac120002"), new ArrayList<>(),
+					new ArrayList<>(), UserRole.USER,
 					"Jane", "jane@example.com",
 					passwordEncoder.encode("password2"));
-			User user3 = new User(UUID.randomUUID(), new ArrayList<>(), new ArrayList<>(), UserRole.ADMIN,
+			User user3 = new User(UUID.fromString("705d1e66-131e-11ee-be56-0242ac120002"), new ArrayList<>(),
+					new ArrayList<>(), UserRole.ADMIN,
 					"Ryan", "gosling@example.com",
 					passwordEncoder.encode("password3"));
 
 			user1 = userRepository.save(user1);
-			userRepository.save(user2);
-			userRepository.save(user3);
+			user2 = userRepository.save(user2);
+			user3 = userRepository.save(user3);
 
-			Event event1 = new Event(UUID.randomUUID(),
+			Event event1 = new Event(UUID.fromString("843edadc-131e-11ee-be56-0242ac120002"),
 					user1,
 					new ArrayList<>(),
 					"Event " + new Random().nextInt(100),
 					"some description",
-					300,
+					Long.valueOf(300),
+					Long.valueOf(30),
+					Long.valueOf(0),
 					false,
 					10,
 					20,
 					Arrays.asList("Case 1", "Case 2", "Case 3"),
 					false);
 
-			Event event2 = new Event(UUID.randomUUID(),
+			Event event2 = new Event(UUID.fromString("d2bcb782-1a62-4060-b66c-5cd0fd0bb73c"),
 					user1,
 					new ArrayList<User>(),
 					"Event " + new Random().nextInt(100),
 					"some description",
-					500,
+					Long.valueOf(500),
+					Long.valueOf(50),
+					Long.valueOf(0),
 					false,
 					10,
 					20,
 					Arrays.asList("Case 1", "Case 2", "Case 3"),
 					false);
 
-			// event2.getEnrolledUsers().add(user2);
+			event2.getEnrolledUsers().add(user2);
 			eventRepository.save(event1);
 			eventRepository.save(event2);
 		};

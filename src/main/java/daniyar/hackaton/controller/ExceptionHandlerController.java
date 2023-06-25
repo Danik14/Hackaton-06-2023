@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import daniyar.hackaton.dto.ErrorDto;
+import daniyar.hackaton.exception.EventsNotFoundException;
 import daniyar.hackaton.exception.UserAlreadyExistsException;
 import daniyar.hackaton.exception.UserNotFoundException;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,7 +29,7 @@ public class ExceptionHandlerController {
                                                 .build());
         }
 
-        @ExceptionHandler({ UserNotFoundException.class })
+        @ExceptionHandler({ UserNotFoundException.class, EventsNotFoundException.class })
         public ResponseEntity<?> handleNotFound(HttpServletRequest request, RuntimeException e) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                                 ErrorDto.builder()
@@ -63,4 +64,6 @@ public class ExceptionHandlerController {
                                                 .message(e.getMessage())
                                                 .build());
         }
+
+        // EventsNotFoundException
 }

@@ -51,8 +51,8 @@ public class EventController {
         return ResponseEntity.ok().body(createdEvent);
     }
 
-    @PostMapping("/{uuid}")
-    public ResponseEntity<?> createEvent(@PathVariable String uuid, Principal principal) {
+    @PostMapping("/{uuid}/enroll")
+    public ResponseEntity<?> participateInEvent(@PathVariable String uuid, Principal principal) {
         UUID id = UUID.fromString(uuid);
         if (uuid == null) {
             throw new IllegalArgumentException("Invalid UUID format");

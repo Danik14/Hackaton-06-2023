@@ -40,6 +40,7 @@ public class Event {
 
     @ManyToMany
     @JoinTable(name = "event_user", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonIgnore
     private List<User> enrolledUsers;
 
     @Column(name = "name", length = 35)
@@ -50,7 +51,13 @@ public class Event {
     private String description;
 
     @Column(name = "price")
-    private int price;
+    private Long price;
+
+    @Column(name = "fee")
+    private Long fee;
+
+    @Column(name = "current_money")
+    private Long currentMoney;
 
     @Column(name = "isPaid")
     private boolean isPaid;

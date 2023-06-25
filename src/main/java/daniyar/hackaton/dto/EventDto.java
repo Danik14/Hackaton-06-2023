@@ -27,7 +27,11 @@ public class EventDto {
 
     @Max(1000_000)
     @NotNull
-    private int price;
+    private Long price;
+
+    @Max(1000_000)
+    @NotNull
+    private Long fee;
 
     @Min(1)
     @NotNull
