@@ -35,7 +35,6 @@ public class EventDto {
 
     @Min(1)
     @NotNull
-
     private int min_people;
 
     @Max(10000)

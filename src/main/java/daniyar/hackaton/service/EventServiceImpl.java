@@ -64,13 +64,14 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventsNotFoundException("Event not found"));
 
-        Long feeAmount = event.getFee() * 100; // Stripe requires the amount in cents
+        // Stripe requires the amount in cents
+        Long feeAmount = event.getFee() * 100;
 
         Stripe.apiKey = stripeApiKey;
 
         PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
                 .setAmount(feeAmount)
-                .setCurrency("usd") // Change to your preferred currency
+                .setCurrency("usd")
                 .setDescription("Event Enrollment Fee")
                 .build();
 
